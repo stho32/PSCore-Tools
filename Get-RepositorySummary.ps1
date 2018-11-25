@@ -25,17 +25,27 @@ function Get-RepositorySummary{
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$true,ValueFromPipeline=$true)]
         [string]$Path
     )
     Begin {}
     Process {
         $Output = New-Object PSCustomObject
+
+        Add-Member -InputObject $Output -MemberType NoteProperty -Name Name -Value (Split-Path $Path -leaf) 
+        Add-Member -InputObject $Output -MemberType NoteProperty -Name Path -Value $Path
     
         if ( Test-Path "$Path/.git" ) {
-            Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "git"
+            Push-Location $Path
+
             $remoteOrigin = (git remote get-url origin)
+            $statusIsClean = (git status) -like "*working tree clean*"
+
+            Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "git"
             Add-Member -InputObject $Output -MemberType NoteProperty -Name RemoteOrigin -Value $remoteOrigin
+            Add-Member -InputObject $Output -MemberType NoteProperty -Name HasUncommittedChanges -Value (-not $statusIsClean)
+
+            Pop-Location
         }
         
         $Output 
