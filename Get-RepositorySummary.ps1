@@ -39,11 +39,15 @@ function Get-RepositorySummary{
             Push-Location $Path
 
             $remoteOrigin = (git remote get-url origin)
-            $statusIsClean = (git status) -like "*working tree clean*"
+
+            $status = (git status)
+            $statusIsClean = $status -like "*working tree clean*"
+            $usePush = $status -like "*use `"git push`"*"
 
             Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "git"
             Add-Member -InputObject $Output -MemberType NoteProperty -Name RemoteOrigin -Value $remoteOrigin
             Add-Member -InputObject $Output -MemberType NoteProperty -Name HasUncommittedChanges -Value (-not $statusIsClean)
+            Add-Member -InputObject $Output -MemberType NoteProperty -Name UsePush -Value $usePush
 
             Pop-Location
         }
