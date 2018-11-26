@@ -20,43 +20,76 @@ function Get-RepositorySummary{
           - What status is it in?
 
         .EXAMPLE
-
         Get-RepositorySummary .
+
+        We have a concrete path given, so we only show information for one repository.
+
+        .EXAMPLE
+        Get-ChildItem | Get-RepositorySummary
+
+        List all items within the current folder and then get repository information
+        about it.
+
+        .EXAMPLE
+        (when the current working directory contains a .git folder)
+        Get-RepositorySummary
+
+        If the current working directory contains a repository only the information
+        for this repository is shown. 
+
+        .EXAMPLE
+        (when the current working directory does not contain a .git folder)
+        Get-RepositorySummary
+
+        Lists repository summaries for all 
+
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$true,ValueFromPipeline=$true)]
+        [Parameter(ValueFromPipeline=$true)]
         [string]$Path
     )
     Begin {}
     Process {
-        $Output = New-Object PSCustomObject
+        if ( $Path -ne "" ) {
+            <# In case we have a concrete path given #>
+            $Output = New-Object PSCustomObject
 
-        Add-Member -InputObject $Output -MemberType NoteProperty -Name Name -Value (Split-Path $Path -leaf) 
-        Add-Member -InputObject $Output -MemberType NoteProperty -Name Path -Value $Path
-    
-        if ( Test-Path "$Path/.git" ) {
-            Push-Location $Path
-
-            if ( (git remote) -like '*origin*' ) {
-                $remoteOrigin = (git remote get-url origin)
-            } else {
-                $remoteOrigin = "origin not found"
-            }
-
-            $status = (git status)
-            $statusIsClean = $status -like "*working tree clean*"
-            $usePush = [bool]($status -like "*git push*")
-
-            Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "git"
-            Add-Member -InputObject $Output -MemberType NoteProperty -Name RemoteOrigin -Value $remoteOrigin
-            Add-Member -InputObject $Output -MemberType NoteProperty -Name HasUncommittedChanges -Value (-not $statusIsClean)
-            Add-Member -InputObject $Output -MemberType NoteProperty -Name UsePush -Value $usePush
-
-            Pop-Location
-        }
+            Add-Member -InputObject $Output -MemberType NoteProperty -Name Name -Value (Split-Path $Path -leaf) 
+            Add-Member -InputObject $Output -MemberType NoteProperty -Name Path -Value $Path
         
-        $Output 
+            if ( Test-Path "$Path/.git" ) {
+                Push-Location $Path
+    
+                if ( (git remote) -like '*origin*' ) {
+                    $remoteOrigin = (git remote get-url origin)
+                } else {
+                    $remoteOrigin = "origin not found"
+                }
+    
+                $status = (git status)
+                $statusIsClean = $status -like "*working tree clean*"
+                $usePush = [bool]($status -like "*git push*")
+    
+                Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "git"
+                Add-Member -InputObject $Output -MemberType NoteProperty -Name RemoteOrigin -Value $remoteOrigin
+                Add-Member -InputObject $Output -MemberType NoteProperty -Name HasUncommittedChanges -Value (-not $statusIsClean)
+                Add-Member -InputObject $Output -MemberType NoteProperty -Name UsePush -Value $usePush
+    
+                Pop-Location
+            }
+            
+            $Output 
+        } else {
+            $Path = (Get-Location).Path
+            $VcsPath = Join-Path $Path .git
+
+            if (Test-Path -Path $VcsPath) {
+                Get-RepositorySummary $Path
+            } else {
+                Get-ChildItem -Directory | Get-RepositorySummary
+            }
+        }
     }
     End {}
 }
