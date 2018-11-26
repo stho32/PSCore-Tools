@@ -8,8 +8,17 @@
 
 Write-Host "Hi Stefan, welcome back!" -ForegroundColor Yellow
 
-Set-Location $PSScriptRoot
+function Update-PSCoreTools {
+    <#
+        This function reloads the functions within this 
+        "module" (which is not a real ps module yet) so 
+        that changes can be applied quicker.
+    #>
+    Set-Location $PSScriptRoot
 
-. ./Get-RepositorySummary.ps1
+    . ./Get-RepositorySummary.ps1
+    
+    Pop-Location
+}
 
-Pop-Location
+Update-PSCoreTools
