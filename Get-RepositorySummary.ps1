@@ -38,7 +38,11 @@ function Get-RepositorySummary{
         if ( Test-Path "$Path/.git" ) {
             Push-Location $Path
 
-            $remoteOrigin = (git remote get-url origin)
+            if ( (git remote) -like '*origin*' ) {
+                $remoteOrigin = (git remote get-url origin)
+            } else {
+                $remoteOrigin = "origin not found"
+            }
 
             $status = (git status)
             $statusIsClean = $status -like "*working tree clean*"
