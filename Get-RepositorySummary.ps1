@@ -42,7 +42,7 @@ function Get-RepositorySummary{
 
             $status = (git status)
             $statusIsClean = $status -like "*working tree clean*"
-            $usePush = $status -like "*use `"git push`"*"
+            $usePush = [bool]($status -like "*git push*")
 
             Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "git"
             Add-Member -InputObject $Output -MemberType NoteProperty -Name RemoteOrigin -Value $remoteOrigin
