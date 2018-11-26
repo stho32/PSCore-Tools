@@ -14,7 +14,7 @@ function Update-PSCoreTools {
         "module" (which is not a real ps module yet) so 
         that changes can be applied quicker.
     #>
-    Set-Location $PSScriptRoot
+    Push-Location $PSScriptRoot
 
     . ./Get-RepositorySummary.ps1
     
