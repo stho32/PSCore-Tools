@@ -21,4 +21,4 @@ function Update-PSCoreTools {
     Pop-Location
 }
 
-Update-PSCoreTools
+. Update-PSCoreTools
