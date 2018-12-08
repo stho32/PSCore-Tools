@@ -3,6 +3,8 @@
 A collection of tools, not especially sorted out. Just the things I need. 
 You can find a full documentation of all cmdlets here GITHUB PAGES LINK.
 
+This library targets Powershell Core 6.
+
 ## Neat things you can do 
 
 ### Get information about all locally checked out git repositories in this folder including some state
