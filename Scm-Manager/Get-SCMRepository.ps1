@@ -4,8 +4,8 @@
         Call to the SCM Manager API and grab a list of all repositories
 
         .EXAMPLE
-        $password = (ConvertTo-SecureString "geronimo3d!" -AsPlainText -Force)
-        Get-SCMRepository -ApiUrl "http://localhost:8080/scm/api/" -Username "Stefan.Hoffmann" -Password $password
+        $password = (ConvertTo-SecureString "Password!" -AsPlainText -Force)
+        Get-SCMRepository -ApiUrl "http://localhost:8080/scm/api/" -Username "Some.User" -Password $password
     #>
     [CmdletBinding()]
     param (
