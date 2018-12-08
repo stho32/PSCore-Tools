@@ -16,7 +16,12 @@ function Update-PSCoreTools {
     #>
     Push-Location $PSScriptRoot
 
-    . ./Get-RepositorySummary.ps1
+    Get-ChildItem -Filter "*.ps1" -Recurse | ForEach-Object {
+        if ( $_.Name -ne "PSCore-Tools.ps1" ) {
+            Write-Host "Loading $($_.Name) ..."
+            . $_
+        }
+    }
     
     Pop-Location
 }
