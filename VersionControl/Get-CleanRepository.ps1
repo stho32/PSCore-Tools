@@ -18,7 +18,7 @@
     
     process {
         Get-RepositorySummary | 
-            Where-Object { ($_.HasUncommitedChanges -eq $false) -and
+            Where-Object { ($_.HasUncommittedChanges -eq $false) -and
                            ($_.UsePush -eq $false) } | 
             Select-Object -ExpandProperty Path
     }
