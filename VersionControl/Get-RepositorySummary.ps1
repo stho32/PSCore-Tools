@@ -78,13 +78,35 @@ function Get-RepositorySummary{
     
                 Pop-Location
             }
+
+            if (Test-Path "$Path/.hg") {
+                Push-Location $Path
+               
+                if ( (hg paths) -like '*default =*' ) {
+                    $remoteOrigin = (hg paths default)
+                } else {
+                    $remoteOrigin = "origin not found"
+                }
+
+                $status = (hg status)
+                $statusIsClean = $status -eq ""
+                $usePush = (hg summary) -like "*draft*"
+
+                Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "hg"
+                Add-Member -InputObject $Output -MemberType NoteProperty -Name RemoteOrigin -Value $remoteOrigin
+                Add-Member -InputObject $Output -MemberType NoteProperty -Name HasUncommittedChanges -Value (-not $statusIsClean)
+                Add-Member -InputObject $Output -MemberType NoteProperty -Name UsePush -Value $usePush
+            }
             
             $Output 
         } else {
             $Path = (Get-Location).Path
-            $VcsPath = Join-Path $Path .git
+            $VcsPathGit = Join-Path $Path .git
+            $VcsPathHg = Join-Path $Path .git
 
-            if (Test-Path -Path $VcsPath) {
+
+            if ((Test-Path -Path $VcsPathGit) -or 
+                (Test-Path -Path $VcsPathHg) ) {
                 Get-RepositorySummary $Path
             } else {
                 Get-ChildItem -Directory | Get-RepositorySummary
