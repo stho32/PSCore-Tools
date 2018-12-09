@@ -17,9 +17,13 @@
         }
 
         if ($IsWindows) {
-            "`n. $PSScriptRoot\..\PSCoreTools.ps1" | Out-File $profile -Append
+            "`nPush-Location `"$PSScriptRoot`"" | Out-File $profile -Append
+            "`n. .\PSCore-Tools.ps1" | Out-File $profile -Append
+            "`nPop-Location"| Out-File $profile -Append
         } else {
-            "`n. $PSScriptRoot/../PSCoreTools.ps1" | Out-File $profile -Append
+            "`nPush-Location `"$PSScriptRoot`"" | Out-File $profile -Append
+            "`n. ./PSCore-Tools.ps1" | Out-File $profile -Append
+            "`nPop-Location"| Out-File $profile -Append
         }
     }    
 }
