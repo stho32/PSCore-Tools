@@ -16,6 +16,10 @@
             New-Item $profile -ItemType File -Force
         }
 
-        "`n. $PSScriptRoot/PSCoreTools.ps1" | Out-File $profile -Append
+        if ($IsWindows) {
+            "`n. $PSScriptRoot\PSCoreTools.ps1" | Out-File $profile -Append
+        } else {
+            "`n. $PSScriptRoot/PSCoreTools.ps1" | Out-File $profile -Append
+        }
     }    
 }
