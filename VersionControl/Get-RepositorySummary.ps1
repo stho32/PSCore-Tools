@@ -89,7 +89,7 @@ function Get-RepositorySummary{
                 }
 
                 $status = (hg status)
-                $statusIsClean = $status -eq ""
+                $statusIsClean = $status -eq $null
                 $usePush = [bool]((hg summary) -like "*draft*")
 
                 Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "hg"
