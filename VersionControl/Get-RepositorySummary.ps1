@@ -96,6 +96,8 @@ function Get-RepositorySummary{
                 Add-Member -InputObject $Output -MemberType NoteProperty -Name RemoteOrigin -Value $remoteOrigin
                 Add-Member -InputObject $Output -MemberType NoteProperty -Name HasUncommittedChanges -Value (-not $statusIsClean)
                 Add-Member -InputObject $Output -MemberType NoteProperty -Name UsePush -Value $usePush
+            
+                Pop-Location
             }
             
             $Output 
