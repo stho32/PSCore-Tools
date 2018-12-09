@@ -90,7 +90,7 @@ function Get-RepositorySummary{
 
                 $status = (hg status)
                 $statusIsClean = $status -eq ""
-                $usePush = (hg summary) -like "*draft*"
+                $usePush = [bool]((hg summary) -like "*draft*")
 
                 Add-Member -InputObject $Output -MemberType NoteProperty -Name VCS -Value "hg"
                 Add-Member -InputObject $Output -MemberType NoteProperty -Name RemoteOrigin -Value $remoteOrigin
@@ -102,7 +102,7 @@ function Get-RepositorySummary{
         } else {
             $Path = (Get-Location).Path
             $VcsPathGit = Join-Path $Path .git
-            $VcsPathHg = Join-Path $Path .git
+            $VcsPathHg = Join-Path $Path .hg
 
 
             if ((Test-Path -Path $VcsPathGit) -or 
