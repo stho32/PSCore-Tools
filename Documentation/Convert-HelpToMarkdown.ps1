@@ -22,7 +22,7 @@
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [MamlCommandHelpInfo]$HelpInfo
+        [ExtendedCmdletHelpInfo]$HelpInfo
     )
     
     Process {
