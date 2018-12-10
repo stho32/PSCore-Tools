@@ -14,7 +14,7 @@
         have a website with search capabilities.
         
         .EXAMPLE
-        Get-Help Get-Service | Convert-HelpToMarkdown | Out-File "Get-Service.md"
+        "Get-Service" | Convert-HelpToMarkdown | Out-File "Get-Service.md"
         
         Gets the help of "Get-Service", converts it to markdown 
         and saves it by using the name of the CmdLet as File.
@@ -22,23 +22,37 @@
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
-        [PSObject]$HelpInfo
+        [string]$CmdletName
     )
     
     Process {
-        Write-Output "# $($HelpInfo.Name)"
-        Write-Output ""
-        Write-Output $HelpInfo.Synopsis
-        Write-Output ""
-        Write-Output $HelpInfo.Syntax
-        Write-Output ""
+        $Sourcecode = (Get-Command $CmdletName).ScriptBlock
         
-        Write-Output "## Beschreibung"
-        Write-Output ""
-        Write-Output $Help.Description
+        $parsedCode = [System.Management.Automation.Language.Parser]::ParseInput($Sourcecode, [ref]$Null, [ref]$Null)
+        $helpContent = $parsedCode.GetHelpContent()
         
-        Write-Output "## Beispiele"
+        $name = (Get-Help $CmdletName).Name
+        $synopsis = ($helpContent.Synopsis).Trim()
+        $description = ($helpContent.Description).Trim()
+        $examples = $helpContent.Examples
+        
+        Write-Output "# $name"
         Write-Output ""
-        Write-Output $Help.Examples
+        Write-Output "*$synopsis*"
+        Write-Output ""
+        Write-Output $description
+        
+        $exampleNr = 1;
+        $examples | Foreach-Object {
+            Write-Output ""
+            Write-Output "## Example Nr. $exampleNr"
+            Write-Output $_
+            
+            $exampleNr += 1
+        }
+        
+        Write-Output ""
+        Write-Output ""
+        Write-Output "<small>To get the full information type PS> ```Get-Help $CmdletName.```</small>"
     }
 }
