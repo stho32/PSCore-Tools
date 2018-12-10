@@ -30,6 +30,7 @@
     
     Process {
         $Sourcecode = Get-Content $FilePath
+        $Sourcecode
         
         $parsedCode = [System.Management.Automation.Language.Parser]::ParseInput($Sourcecode, [ref]$Null, [ref]$Null)
         $helpContent = $parsedCode.GetHelpContent()
