@@ -1,7 +1,7 @@
 ﻿function Convert-HelpToMarkdown {
     <#
         .SYNOPSIS
-        Converts the help of a CmdLet into a markdown file
+        Converts the help within a powershell code file into a markdown file
         
         .DESCRIPTION
         You have that big bunch of CmdLets written down and it contains all 
@@ -13,25 +13,28 @@
         That can be used as input files for a docfx-Project and boom you now
         have a website with search capabilities.
         
-        .EXAMPLE
-        "Get-Service" | Convert-HelpToMarkdown | Out-File "Get-Service.md"
+        One thing that is not so well is that at the moment the CmdLets have 
+        to be loaded, so I have access to the Help-Content.
         
-        Gets the help of "Get-Service", converts it to markdown 
+        .EXAMPLE
+        "C:\Projects\Ps\PsFile.ps1" | Convert-HelpToMarkdown | Out-File "PsFile.md"
+        
+        Gets the help of "PsFile.ps1", converts it to markdown 
         and saves it by using the name of the CmdLet as File.
     #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
-        [string]$CmdletName
+        [string]$FilePath
     )
     
     Process {
-        $Sourcecode = (Get-Command $CmdletName).ScriptBlock
+        $Sourcecode = Get-Content $FilePath
         
         $parsedCode = [System.Management.Automation.Language.Parser]::ParseInput($Sourcecode, [ref]$Null, [ref]$Null)
         $helpContent = $parsedCode.GetHelpContent()
         
-        $name = (Get-Help $CmdletName).Name
+        $name = Split-Path $FilePath -LeafBase
         $synopsis = ($helpContent.Synopsis).Trim()
         $description = ($helpContent.Description).Trim()
         $examples = $helpContent.Examples
