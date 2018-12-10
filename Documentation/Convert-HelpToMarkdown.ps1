@@ -26,26 +26,19 @@
     )
     
     Process {
-        "# $($HelpInfo.Name)
-         
-         $($HelpInfo.Synopsis)
-
-         $($HelpInfo.Syntax)
-         
-         "
-         
-        if ( $null -ne $Help.Details.Description ) {
-            "## Beschreibung
-             
-             $($Help.Details.Description)
-            "
+        Write-Output "# $($HelpInfo.Name)"
+        Write-Output ""
+        Write-Output $($HelpInfo.Synopsis)
+        Write-Output ""
+        Write-Output $($HelpInfo.Syntax)
+        Write-Output ""
+        
+        if ( $null -ne $Help.Description ) {
+            Write-Output "## Beschreibung"
+            Write-Output ""
+            Write-Output $($Help.Description)
         }
         
-        if ( $null -ne $Help.Examples ) {
-            "## Beispiele
-            "
-            
-            $Help.Examples
-        }
+        Write-Output $Help.Examples
     }
 }
