@@ -28,17 +28,17 @@
     Process {
         Write-Output "# $($HelpInfo.Name)"
         Write-Output ""
-        Write-Output $($HelpInfo.Synopsis)
+        Write-Output $HelpInfo.Synopsis
         Write-Output ""
-        Write-Output $($HelpInfo.Syntax)
+        Write-Output $HelpInfo.Syntax
         Write-Output ""
         
-        if ( $null -ne $Help.Description ) {
-            Write-Output "## Beschreibung"
-            Write-Output ""
-            Write-Output $($Help.Description)
-        }
+        Write-Output "## Beschreibung"
+        Write-Output ""
+        Write-Output $Help.Description
         
+        Write-Output "## Beispiele"
+        Write-Output ""
         Write-Output $Help.Examples
     }
 }
