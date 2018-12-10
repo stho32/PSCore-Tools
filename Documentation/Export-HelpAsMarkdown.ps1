@@ -42,7 +42,7 @@
         
         Get-ChildItem -Filter *.ps1 -Recurse | ForEach-Object {
             $fileNameWithoutExtension = $_.Name | Split-Path -LeafBase
-            $markdown = Convert-HelpToMarkdown -CmdletName $fileNameWithoutExtension
+            $markdown = Convert-HelpToMarkdown -FilePath $_.Fullname
             
             $relativePathOfSourceFile = ($_.Fullname | Split-Path -Parent).Remove(0, $Path.Length)
             $absolutePathOfTargetFile = Join-Path $TargetPath $relativePathOfSourceFile "$fileNameWithoutExtension.md"
