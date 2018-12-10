@@ -21,7 +21,7 @@
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$true, PropertyValueByPipeline=$true)]
         [PSObject]$HelpInfo
     )
     
