@@ -22,7 +22,7 @@
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
-        [ExtendedCmdletHelpInfo]$HelpInfo
+        [PSObject]$HelpInfo
     )
     
     Process {
