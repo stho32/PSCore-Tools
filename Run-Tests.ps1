@@ -7,5 +7,13 @@
 
 Import-Module Pester
 
-$filesToCover = Get-ChildItem .\Source -File -Recurse -Include *.ps1
-Invoke-Pester -Path "./Tests" -CodeCoverage $filesToCover
+Push-Location $PSScriptRoot
+
+. ./PSCore-Tools.ps1
+
+Invoke-Pester -Path "./Tests"
+
+#$filesToCover = Get-ChildItem .\Source -File -Recurse -Include *.ps1
+#Invoke-Pester -Path "./Tests" -CodeCoverage $filesToCover
+
+Pop-Location
