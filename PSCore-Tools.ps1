@@ -14,13 +14,11 @@ function Update-PSCoreTools {
         "module" (which is not a real ps module yet) so 
         that changes can be applied quicker.
     #>
-    Push-Location $PSScriptRoot
+    Push-Location $PSScriptRoot/Source
 
     Get-ChildItem -Filter "*.ps1" -Recurse | ForEach-Object {
-        if ( $_.Name -ne "PSCore-Tools.ps1" ) {
-            Write-Host "Loading $($_.Name) ..."
-            . $_
-        }
+        Write-Host "Loading $($_.Name) ..."
+        . $_
     }
     
     Pop-Location
