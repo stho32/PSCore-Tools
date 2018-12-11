@@ -6,5 +6,6 @@
         $comments | Should -Not -Be $null
         ($comments | Measure-Object).Count | Should -Be 1
         $comments | Should -BeLike "*SYNOPSIS*"
+        $comments | Should -BeLike "*`n*"
     }
 }

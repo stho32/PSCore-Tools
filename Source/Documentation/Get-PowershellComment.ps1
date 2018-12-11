@@ -32,8 +32,8 @@ function Get-PowershellComment {
     )
     
     process {
-        $content = Get-Content -Path $FilePath -Encoding UTF8
-        $comments = [RegEx]::Match($content, "<#(.+?)#>").Value
+        $content = (Get-Content -Path $FilePath -Raw -Encoding UTF8)
+        $comments = ($content | Select-String -Pattern "(?smi)<#(.+?)#>" -AllMatches).Matches.Value
         Write-Output $comments
     }
 }
