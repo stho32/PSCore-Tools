@@ -7,6 +7,7 @@
 #>
 
 Write-Host "Hi Stefan, welcome back!" -ForegroundColor Yellow
+$ErrorActionPreference = "Stop"
 
 function Update-PSCoreTools {
     <#

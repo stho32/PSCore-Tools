@@ -29,15 +29,11 @@
     )
     
     Process {
-        $Sourcecode = Get-Content $FilePath
-        $Sourcecode
-        
-        $parsedCode = [System.Management.Automation.Language.Parser]::ParseInput($Sourcecode, [ref]$Null, [ref]$Null)
-        $helpContent = $parsedCode.GetHelpContent()
-        
+        $helpContent = Get-PowershellHelp $FilePath
+
         $name = Split-Path $FilePath -LeafBase
-        $synopsis = ($helpContent.Synopsis).Trim()
-        $description = ($helpContent.Description).Trim()
+        $synopsis = $helpContent.Synopsis
+        $description = $helpContent.Description
         $examples = $helpContent.Examples
         
         Write-Output "# $name"

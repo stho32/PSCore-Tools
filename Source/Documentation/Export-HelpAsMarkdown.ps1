@@ -40,15 +40,34 @@
         # Convert relative paths to full paths
         $Path = (Get-Location).Path
         
-        Get-ChildItem -Filter *.ps1 -Recurse | ForEach-Object {
+        Get-ChildItem -Filter *.ps1 -Recurse | Sort-Object Fullname | ForEach-Object {
             $fileNameWithoutExtension = $_.Name | Split-Path -LeafBase
             $markdown = Convert-HelpToMarkdown -FilePath $_.Fullname
             
             $relativePathOfSourceFile = ($_.Fullname | Split-Path -Parent).Remove(0, $Path.Length)
+            if ( $relativePathOfSourceFile.StartsWith("/") -or 
+                 $relativePathOfSourceFile.StartsWith("\") ) {
+                $relativePathOfSourceFile = $relativePathOfSourceFile.Remove(0,1)
+            }
             $absolutePathOfTargetFile = Join-Path $TargetPath $relativePathOfSourceFile "$fileNameWithoutExtension.md"
 
-            Write-Host $absolutePathOfTargetFile
-            
+            $targetDirectory = Split-Path $absolutePathOfTargetFile -Parent
+            if ( -not (Test-Path $targetDirectory) ) {
+                New-Item -Type Directory $targetDirectory | Out-Null
+            }
+
+            Convert-HelpToMarkdown -FilePath $_.Fullname | Out-File $absolutePathOfTargetFile -Encoding UTF8 -Force
+
+            <#
+                We return a list of relative paths so we can create a yml file from that. 
+            #>
+            $relativePathToTargetFile = "$fileNameWithoutExtension.md" 
+            if ( $relativePathOfSourceFile -ne "" ) {
+                $relativePathToTargetFile = Join-Path $relativePathOfSourceFile "$fileNameWithoutExtension.md"
+            }
+
+            Write-Output "- name: $fileNameWithoutExtension"
+            Write-Output "  href: $relativePathToTargetFile"
         }
         
         Pop-Location
