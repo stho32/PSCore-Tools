@@ -79,7 +79,29 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="get-repositorysummary">Get-RepositorySummary</h1>
 
-<p>**</p>
+<p><em>Gets some information about the folder you are currently
+in showing some information.</em></p>
+<ul>
+<li>Is it a git repository?</li>
+<li>Which remotes does it contain?</li>
+<li>What status is it in?</li>
+</ul>
+<h2 id="example-nr-1">Example Nr. 1</h2>
+<p>Get-RepositorySummary .</p>
+<p>We have a concrete path given, so we only show information for one repository.</p>
+<h2 id="example-nr-2">Example Nr. 2</h2>
+<p>Get-ChildItem | Get-RepositorySummary</p>
+<p>List all items within the current folder and then get repository information
+about it.</p>
+<h2 id="example-nr-3">Example Nr. 3</h2>
+<p>(when the current working directory contains a .git folder)
+Get-RepositorySummary</p>
+<p>If the current working directory contains a repository only the information
+for this repository is shown.</p>
+<h2 id="example-nr-4">Example Nr. 4</h2>
+<p>(when the current working directory does not contain a .git folder)
+Get-RepositorySummary</p>
+<p>Lists repository summaries for all</p>
 <p><small>To get the full information type PS&gt; <code>Get-Help .</code></small></p>
 </article>
           </div>
