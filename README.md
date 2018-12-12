@@ -7,16 +7,10 @@ This library targets Powershell Core 6.
 
 ## Neat things you can do 
 
-### Get information about all locally checked out git repositories in this folder including some state
+  - work with repositories of git and hg, get their state in ways that allow for automation
+  - build docfx help from a powershell files automatically (the way I did it for this repo)
+  - communicate with a scm server
 
-```powershell
-Get-RepositorySummary
-```
-
-### Connect to a Scm-Manager instance and clone all available repositories (using git)
-
-```powershell
-$repositories = Get-SCMRepository -ApiUrl "http://localhost:8080/scm/api" -Username "User"
-$repositories.url | ForEach-Object { git clone $_ }
-```
+GitHub-Pages / Documentation: 
+https://stho32.github.io/PSCore-Tools/docfx_project/site/articles/Add-PSCoreToolsToProfile.html 
 
