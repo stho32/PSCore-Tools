@@ -20,6 +20,6 @@ Export-HelpAsMarkdown .\Source\ .\docfx_project\articles | Out-File .\docfx_proj
 
 Set-Location .\docfx_project
 
-docfx --serve
+docfx --build
 
 Pop-Location
