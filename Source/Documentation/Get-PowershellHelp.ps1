@@ -48,23 +48,23 @@
                 }
                 "description" { 
                     return @{
-                        "synopsis" = $data["synopsis"];
+                        "synopsis"    = $data["synopsis"];
                         "description" = $activeState.activeContent.Trim();
-                        "examples" = $data["examples"];
+                        "examples"    = $data["examples"];
                     } 
                 }
                 "example"     { 
                     return @{
-                        "synopsis" = $data["synopsis"];
+                        "synopsis"    = $data["synopsis"];
                         "description" = $data["description"];
-                        "examples" = $data["examples"] += $activeState.activeContent.Trim();
+                        "examples"    = $data["examples"] += $activeState.activeContent.Trim();
                     } 
                 }
             }
         }
 
         function SetNewStorageTarget($activeState, $target) {
-            $activeState.activeTarget = $target
+            $activeState.activeTarget  = $target
             $activeState.activeContent = ""
 
             return $activeState
