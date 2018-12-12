@@ -1,18 +1,24 @@
 - name: Add-PSCoreToolsToProfile
   href: Add-PSCoreToolsToProfile.md
-- name: Convert-HelpToMarkdown
-  href: Documentation\Convert-HelpToMarkdown.md
-- name: Export-HelpAsMarkdown
-  href: Documentation\Export-HelpAsMarkdown.md
-- name: Get-PowershellComment
-  href: Documentation\Get-PowershellComment.md
-- name: Get-PowershellHelp
-  href: Documentation\Get-PowershellHelp.md
-- name: Get-SCMRepository
-  href: Scm-Manager\Get-SCMRepository.md
-- name: Get-CleanRepository
-  href: VersionControl\Get-CleanRepository.md
-- name: Get-NoRepository
-  href: VersionControl\Get-NoRepository.md
-- name: Get-RepositorySummary
-  href: VersionControl\Get-RepositorySummary.md
+- name: Documentation
+  items: 
+  - name: Convert-HelpToMarkdown
+    href: Documentation\Convert-HelpToMarkdown.md
+  - name: Export-HelpAsMarkdown
+    href: Documentation\Export-HelpAsMarkdown.md
+  - name: Get-PowershellComment
+    href: Documentation\Get-PowershellComment.md
+  - name: Get-PowershellHelp
+    href: Documentation\Get-PowershellHelp.md
+- name: Scm-Manager
+  items: 
+  - name: Get-SCMRepository
+    href: Scm-Manager\Get-SCMRepository.md
+- name: VersionControl
+  items: 
+  - name: Get-CleanRepository
+    href: VersionControl\Get-CleanRepository.md
+  - name: Get-NoRepository
+    href: VersionControl\Get-NoRepository.md
+  - name: Get-RepositorySummary
+    href: VersionControl\Get-RepositorySummary.md

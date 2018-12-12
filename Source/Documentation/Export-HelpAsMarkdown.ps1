@@ -39,7 +39,8 @@
         Push-Location $Path
         # Convert relative paths to full paths
         $Path = (Get-Location).Path
-        
+        $ActiveOutputDirectory = ""; 
+
         Get-ChildItem -Filter *.ps1 -Recurse | Sort-Object Fullname | ForEach-Object {
             $fileNameWithoutExtension = $_.Name | Split-Path -LeafBase
             $markdown = Convert-HelpToMarkdown -FilePath $_.Fullname
@@ -61,13 +62,22 @@
             <#
                 We return a list of relative paths so we can create a yml file from that. 
             #>
-            $relativePathToTargetFile = "$fileNameWithoutExtension.md" 
+            $relativePathToTargetFile = "$fileNameWithoutExtension.md"
             if ( $relativePathOfSourceFile -ne "" ) {
                 $relativePathToTargetFile = Join-Path $relativePathOfSourceFile "$fileNameWithoutExtension.md"
+
+                if ( $ActiveOutputDirectory -ne $relativePathOfSourceFile ) {
+                    Write-Output "- name: $relativePathOfSourceFile"
+                    Write-Output "  items: "
+                    $ActiveOutputDirectory = $relativePathOfSourceFile
+                }
+                Write-Output "  - name: $fileNameWithoutExtension"
+                Write-Output "    href: $relativePathToTargetFile"
+            } else {
+                Write-Output "- name: $fileNameWithoutExtension"
+                Write-Output "  href: $relativePathToTargetFile"
             }
 
-            Write-Output "- name: $fileNameWithoutExtension"
-            Write-Output "  href: $relativePathToTargetFile"
         }
         
         Pop-Location
