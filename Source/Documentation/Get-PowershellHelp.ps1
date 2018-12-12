@@ -20,13 +20,88 @@
     )
     
     process {
-        $helpComment = Get-PowershellComment -FilePath $FilePath | Select -First 1
+        $helpComment = Get-PowershellComment -FilePath $FilePath | Select-Object -First 1
 
-        $synopsis = ""
-        $description = ""
-        $examples = @()
+        $data = @{
+            "synopsis" = "";
+            "description" = "";
+            "examples" = @();
+        }
+
+        $activeState = @{
+            "activeTarget" = "";
+            "activeContent" = "";
+        }
+
+        function StoreInformationForOutput($data, $activeState) {
+            if ([System.String]::IsNullOrWhiteSpace($activeState.activeTarget)) {
+                return $data
+            }
+
+            switch ($activeState.activeTarget) {
+                "synopsis"    { 
+                    return @{
+                        "synopsis"    = $activeState.activeContent.Trim();
+                        "description" = $data["description"];
+                        "examples"    = $data["examples"];
+                    } 
+                }
+                "description" { 
+                    return @{
+                        "synopsis" = $data["synopsis"];
+                        "description" = $activeState.activeContent.Trim();
+                        "examples" = $data["examples"];
+                    } 
+                }
+                "example"     { 
+                    return @{
+                        "synopsis" = $data["synopsis"];
+                        "description" = $data["description"];
+                        "examples" = $data["examples"] += $activeState.activeContent.Trim();
+                    } 
+                }
+            }
+        }
+
+        function SetNewStorageTarget($activeState, $target) {
+            $activeState.activeTarget = $target
+            $activeState.activeContent = ""
+
+            return $activeState
+        }
 
         $asRows = $helpComment -Split "`n"
-        $asRows
+        $asRows | ForEach-Object {
+            $activeRow = $_.Trim()
+
+            if ( $activeRow -eq "<#" -or $activeRow -eq "#>") {
+                return
+            }
+
+            if ( $activeRow -like ".SYNOPSIS" ) {
+                $data = StoreInformationForOutput $data $activeState
+                $activeState = SetNewStorageTarget $activeState "synopsis" 
+                return
+            }
+
+            if ( $activeRow -like ".DESCRIPTION" ) {
+                $data = StoreInformationForOutput $data $activeState
+                $activeState = SetNewStorageTarget $activeState "description" 
+                return
+            }
+
+            if ( $activeRow -like ".EXAMPLE" ) {
+                $data = StoreInformationForOutput $data $activeState
+                $activeState = SetNewStorageTarget $activeState "example" 
+                return
+            }
+
+            $activeState.activeContent += $activeRow + "`n"
+        }
+
+        # Store the last element also
+        $data = StoreInformationForOutput $data $activeState
+
+        New-Object -TypeName psobject -Property $data
     }
 }
