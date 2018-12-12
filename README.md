@@ -1,7 +1,9 @@
 # PSCore-Tools
 
 A collection of tools, not especially sorted out. Just the things I need. 
-You can find a full documentation of all cmdlets here GITHUB PAGES LINK.
+
+GitHub-Pages / Documentation: 
+https://stho32.github.io/PSCore-Tools/docfx_project/site/articles/Add-PSCoreToolsToProfile.html 
 
 This library targets Powershell Core 6.
 
@@ -11,6 +13,4 @@ This library targets Powershell Core 6.
   - build docfx help from a powershell files automatically (the way I did it for this repo)
   - communicate with a scm server
 
-GitHub-Pages / Documentation: 
-https://stho32.github.io/PSCore-Tools/docfx_project/site/articles/Add-PSCoreToolsToProfile.html 
 
