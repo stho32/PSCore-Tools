@@ -1,52 +1,52 @@
 {
-  "index.html": {
-    "href": "index.html",
-    "title": "PSCore-Tools",
-    "keywords": "PSCore-Tools The PSCore-Tools are a collection of commandlets with the target to help me working with code. The tools are compatible with powershell core, thus run under a range of useful operating systems. Click here to go to a more comprehensive help."
-  },
-  "articles/Documentation/Get-PowershellComment.html": {
-    "href": "articles/Documentation/Get-PowershellComment.html",
-    "title": "Get-PowershellComment",
-    "keywords": "Get-PowershellComment Grabs all multiline comments from a powershell code file We want to generate markdown files containing help. As a first thing that we need to do, we need to read that help comment at the start of every file. Unfortunately this is a rather complex problem. At first I tought you could simply do a Get-Help on some commandlet and then use the returned object. Well that doesn't really work for e.g. the examples. The syntax of the Cmdlet is suddenly a mess. Not to mention, that you can only generate markdowns for functions that you have loaded into memory... Then I thought about using that Powershell-Parser that comes with Powershell itself. Thats way to complicated and I can't really figure out how to simply retrieve me the stuff I need. So, last escape: A simple regular expression should help. Example Nr. 1 Get-PowershellComment -FilePath \".\\SomeScript.ps1\" Grabs a list of all multiline comments from the file. To get the full information type PS> Get-Help ."
-  },
-  "articles/Documentation/Get-PowershellHelp.html": {
-    "href": "articles/Documentation/Get-PowershellHelp.html",
-    "title": "Get-PowershellHelp",
-    "keywords": "Get-PowershellHelp Extracts the help content from the first comment of a .ps1 To create our own e.g. markdown representation of powershell help content we need the information of the first multiline comment and need to extract all those neat little sections. Example Nr. 1 Get-PowershellHelp -FilePath \"SomeScript.ps1\" Grabs the help content as a little object, so you can process it further. To get the full information type PS> Get-Help ."
+  "articles/Documentation/Export-HelpAsMarkdown.html": {
+    "href": "articles/Documentation/Export-HelpAsMarkdown.html",
+    "title": "Export-HelpAsMarkdown",
+    "keywords": "Export-HelpAsMarkdown Crawls a directory recursivly grabbing the help from every Cmdlet-File it finds and creates a markdown file for it. Export-HelpAsMarkdown grabs all .ps1 files in the specified source directory recursivly. For each one it will create a .md file with the same name in the target directory. It will extract the powershell help content from the files and convert them into valid markdown. It will keep the subdirectory structure. It will create a toc.yml file in the target directory. That file can be used in a documentation created by docfx to add all newly created files. Example Nr. 1 Export-HelpAsMarkdown -Path . -TargetPath .\\docfx_project\\api Scans the current path and creates a markdown representation of the help of each Cmdlet-File it finds within the api folder of the docfx_project. To get the full information type PS> Get-Help ."
   },
   "articles/VersionControl/Get-NoRepository.html": {
     "href": "articles/VersionControl/Get-NoRepository.html",
     "title": "Get-NoRepository",
     "keywords": "Get-NoRepository Gets the list of paths to subdirectories within the current path that do not contain a repository. The Cmdlet checks every subdirectory within the current directory and lists all subdirectories with their full path which do not contain a git or mercurial repository. The aim is to find any of your experiments that you did not create a repository for yet. Either get them a repo or remove em. Example Nr. 1 Get-NoRepository To get the full information type PS> Get-Help ."
   },
-  "articles/Add-PSCoreToolsToProfile.html": {
-    "href": "articles/Add-PSCoreToolsToProfile.html",
-    "title": "Add-PSCoreToolsToProfile",
-    "keywords": "Add-PSCoreToolsToProfile Adds this library to the current users profile, so all commandlets are loaded at startup. Example Nr. 1 Add-PSCToProfile Adds this library to your profile. Creates the profile file if it does not exist. To get the full information type PS> Get-Help ."
+  "articles/Documentation/Convert-HelpToMarkdown.html": {
+    "href": "articles/Documentation/Convert-HelpToMarkdown.html",
+    "title": "Convert-HelpToMarkdown",
+    "keywords": "Convert-HelpToMarkdown Converts the help within a powershell code file into a markdown file You have that big bunch of CmdLets written down and it contains all the help one needs, but it is inaccessable because people do not look at the source code and do not really know how to use the powershell help. Then you can now generate markdown from the help you already write. That can be used as input files for a docfx-Project and boom you now have a website with search capabilities. One thing that is not so well is that at the moment the CmdLets have to be loaded, so I have access to the Help-Content. Example Nr. 1 \"C:\\Projects\\Ps\\PsFile.ps1\" | Convert-HelpToMarkdown | Out-File \"PsFile.md\" Gets the help of \"PsFile.ps1\", converts it to markdown and saves it by using the name of the CmdLet as File. To get the full information type PS> Get-Help ."
+  },
+  "articles/VersionControl/Get-RepositorySummary.html": {
+    "href": "articles/VersionControl/Get-RepositorySummary.html",
+    "title": "Get-RepositorySummary",
+    "keywords": "Get-RepositorySummary Gets some information about the folder you are currently in showing some information. Is it a git repository? Which remotes does it contain? What status is it in? Example Nr. 1 Get-RepositorySummary . We have a concrete path given, so we only show information for one repository. Example Nr. 2 Get-ChildItem | Get-RepositorySummary List all items within the current folder and then get repository information about it. Example Nr. 3 (when the current working directory contains a .git folder) Get-RepositorySummary If the current working directory contains a repository only the information for this repository is shown. Example Nr. 4 (when the current working directory does not contain a .git folder) Get-RepositorySummary Lists repository summaries for all To get the full information type PS> Get-Help ."
   },
   "articles/VersionControl/Get-CleanRepository.html": {
     "href": "articles/VersionControl/Get-CleanRepository.html",
     "title": "Get-CleanRepository",
     "keywords": "Get-CleanRepository Gets a list of paths of all clean repositories in the current path. The CmdLet checks all repositories for needed commits and pushs. If there aren't any, it will return the path. This can be passed to another cmdlet like Remove-Item to e.g. clean up the workspace. Example Nr. 1 Get-CleanRepository | Remove-Item -Force -Recurse To get the full information type PS> Get-Help ."
   },
-  "articles/Documentation/Export-HelpAsMarkdown.html": {
-    "href": "articles/Documentation/Export-HelpAsMarkdown.html",
-    "title": "Export-HelpAsMarkdown",
-    "keywords": "Export-HelpAsMarkdown Crawls a directory recursivly grabbing the help from every Cmdlet-File it finds and creates a markdown file for it. Export-HelpAsMarkdown grabs all .ps1 files in the specified source directory recursivly. For each one it will create a .md file with the same name in the target directory. It will extract the powershell help content from the files and convert them into valid markdown. It will keep the subdirectory structure. It will create a toc.yml file in the target directory. That file can be used in a documentation created by docfx to add all newly created files. Example Nr. 1 Export-HelpAsMarkdown -Path . -TargetPath .\\docfx_project\\api Scans the current path and creates a markdown representation of the help of each Cmdlet-File it finds within the api folder of the docfx_project. To get the full information type PS> Get-Help ."
+  "articles/Add-PSCoreToolsToProfile.html": {
+    "href": "articles/Add-PSCoreToolsToProfile.html",
+    "title": "Add-PSCoreToolsToProfile",
+    "keywords": "Add-PSCoreToolsToProfile Adds this library to the current users profile, so all commandlets are loaded at startup. Example Nr. 1 Add-PSCToProfile Adds this library to your profile. Creates the profile file if it does not exist. To get the full information type PS> Get-Help ."
   },
-  "articles/Documentation/Convert-HelpToMarkdown.html": {
-    "href": "articles/Documentation/Convert-HelpToMarkdown.html",
-    "title": "Convert-HelpToMarkdown",
-    "keywords": "Convert-HelpToMarkdown Converts the help within a powershell code file into a markdown file You have that big bunch of CmdLets written down and it contains all the help one needs, but it is inaccessable because people do not look at the source code and do not really know how to use the powershell help. Then you can now generate markdown from the help you already write. That can be used as input files for a docfx-Project and boom you now have a website with search capabilities. One thing that is not so well is that at the moment the CmdLets have to be loaded, so I have access to the Help-Content. Example Nr. 1 \"C:\\Projects\\Ps\\PsFile.ps1\" | Convert-HelpToMarkdown | Out-File \"PsFile.md\" Gets the help of \"PsFile.ps1\", converts it to markdown and saves it by using the name of the CmdLet as File. To get the full information type PS> Get-Help ."
+  "articles/Documentation/Get-PowershellComment.html": {
+    "href": "articles/Documentation/Get-PowershellComment.html",
+    "title": "Get-PowershellComment",
+    "keywords": "Get-PowershellComment Grabs all multiline comments from a powershell code file We want to generate markdown files containing help. As a first thing that we need to do, we need to read that help comment at the start of every file. Unfortunately this is a rather complex problem. At first I tought you could simply do a Get-Help on some commandlet and then use the returned object. Well that doesn't really work for e.g. the examples. The syntax of the Cmdlet is suddenly a mess. Not to mention, that you can only generate markdowns for functions that you have loaded into memory... Then I thought about using that Powershell-Parser that comes with Powershell itself. Thats way to complicated and I can't really figure out how to simply retrieve me the stuff I need. So, last escape: A simple regular expression should help. Example Nr. 1 Get-PowershellComment -FilePath \".\\SomeScript.ps1\" Grabs a list of all multiline comments from the file. To get the full information type PS> Get-Help ."
   },
   "articles/Scm-Manager/Get-SCMRepository.html": {
     "href": "articles/Scm-Manager/Get-SCMRepository.html",
     "title": "Get-SCMRepository",
     "keywords": "Get-SCMRepository Call to the SCM Manager API and grab a list of all repositories Example Nr. 1 $password = (ConvertTo-SecureString \"Password!\" -AsPlainText -Force) Get-SCMRepository -ApiUrl \"http://localhost:8080/scm/api/\" -Username \"Some.User\" -Password $password To get the full information type PS> Get-Help ."
   },
-  "articles/VersionControl/Get-RepositorySummary.html": {
-    "href": "articles/VersionControl/Get-RepositorySummary.html",
-    "title": "Get-RepositorySummary",
-    "keywords": "Get-RepositorySummary Gets some information about the folder you are currently in showing some information. Is it a git repository? Which remotes does it contain? What status is it in? Example Nr. 1 Get-RepositorySummary . We have a concrete path given, so we only show information for one repository. Example Nr. 2 Get-ChildItem | Get-RepositorySummary List all items within the current folder and then get repository information about it. Example Nr. 3 (when the current working directory contains a .git folder) Get-RepositorySummary If the current working directory contains a repository only the information for this repository is shown. Example Nr. 4 (when the current working directory does not contain a .git folder) Get-RepositorySummary Lists repository summaries for all To get the full information type PS> Get-Help ."
+  "articles/Documentation/Get-PowershellHelp.html": {
+    "href": "articles/Documentation/Get-PowershellHelp.html",
+    "title": "Get-PowershellHelp",
+    "keywords": "Get-PowershellHelp Extracts the help content from the first comment of a .ps1 To create our own e.g. markdown representation of powershell help content we need the information of the first multiline comment and need to extract all those neat little sections. Example Nr. 1 Get-PowershellHelp -FilePath \"SomeScript.ps1\" Grabs the help content as a little object, so you can process it further. To get the full information type PS> Get-Help ."
+  },
+  "index.html": {
+    "href": "index.html",
+    "title": "PSCore-Tools",
+    "keywords": "PSCore-Tools The PSCore-Tools are a collection of commandlets with the target to help me working with code. The tools are compatible with powershell core, thus run under a range of useful operating systems. Click here to go to a more comprehensive help."
   }
 }

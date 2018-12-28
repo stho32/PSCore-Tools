@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/Add-PSCoreToolsToProfile.html",
-          "hash": "6V9IvH0gaTVARsstbRMpAg=="
+          "hash": "vIZSlDbqTn+oOLp37/mLEw=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/Documentation/Convert-HelpToMarkdown.html",
-          "hash": "X+DJIHSX05jJ3zwJwa+cog=="
+          "hash": "XeJc+KjCJ9boIvVbsphzJg=="
         }
       },
       "is_incremental": false,
@@ -42,7 +42,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/Documentation/Export-HelpAsMarkdown.html",
-          "hash": "1e/KXls8ESfZooqiiPCiyg=="
+          "hash": "l9Gg1JQgI7bjvdeTpSnKTQ=="
         }
       },
       "is_incremental": false,
@@ -54,7 +54,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/Documentation/Get-PowershellComment.html",
-          "hash": "igWz4kvEGgYVZSpV6jbF5Q=="
+          "hash": "VpzuJgNbdYig7Cf5rr31pQ=="
         }
       },
       "is_incremental": false,
@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/Documentation/Get-PowershellHelp.html",
-          "hash": "PGS08Yw1ZEtXPNqhGtB+wQ=="
+          "hash": "vnxYLq1rfpP5XbFSZj5hMQ=="
         }
       },
       "is_incremental": false,
@@ -78,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/Scm-Manager/Get-SCMRepository.html",
-          "hash": "SnZheyCtfK7ePen2/7focA=="
+          "hash": "ECsLZLpWbbhQ6gmdAdHv9Q=="
         }
       },
       "is_incremental": false,
@@ -90,7 +90,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/VersionControl/Get-CleanRepository.html",
-          "hash": "v2wWvD7Cwb1es8jEXHiHHg=="
+          "hash": "NdV1AMo+oWomyCzSNCV4Fg=="
         }
       },
       "is_incremental": false,
@@ -102,7 +102,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/VersionControl/Get-NoRepository.html",
-          "hash": "B5k6qE3WWT4TdmS46ru5qw=="
+          "hash": "qDl14sgW1QuJA4guvc5xGg=="
         }
       },
       "is_incremental": false,
@@ -114,7 +114,7 @@
       "output": {
         ".html": {
           "relative_path": "articles/VersionControl/Get-RepositorySummary.html",
-          "hash": "uhseeGeqzAw8pA0d2vC5RA=="
+          "hash": "uGlGAHGYCdC7QL3VvIulrg=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "8wkG+8/otvny3ADF/eE+Xg=="
+          "hash": "MBXIu+0BYUIOuGomianXdg=="
         }
       },
       "is_incremental": false,
@@ -163,17 +163,18 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build"
       },
       "processors": {
-        "ConceptualDocumentProcessor": {
-          "can_incremental": true,
-          "incrementalPhase": "build"
-        },
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
           "incrementalPhase": "build"
         }
       }
