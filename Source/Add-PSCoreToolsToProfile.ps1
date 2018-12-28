@@ -18,10 +18,12 @@
 
         if ($IsWindows) {
             "`nPush-Location `"$PSScriptRoot`"" | Out-File $profile -Append
+            "`nSet-Location .." | Out-File $profile -Append
             "`n. .\PSCore-Tools.ps1" | Out-File $profile -Append
             "`nPop-Location"| Out-File $profile -Append
         } else {
             "`nPush-Location `"$PSScriptRoot`"" | Out-File $profile -Append
+            "`nSet-Location .." | Out-File $profile -Append
             "`n. ./PSCore-Tools.ps1" | Out-File $profile -Append
             "`nPop-Location"| Out-File $profile -Append
         }
